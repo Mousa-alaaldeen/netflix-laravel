@@ -17,10 +17,13 @@ return new class extends Migration
             $table->text('description');
             $table->string('image')->nullable(); 
             $table->date('release_date');
-            $table->text('review');
+            $table->text('review')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('category_id'); 
             $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
+       
+
+            
         });
     }
 

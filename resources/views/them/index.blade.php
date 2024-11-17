@@ -1,5 +1,96 @@
    @extends('them.master')
+   <br>
+   <br>
+   <br><br>
    <!-- owl-carousel Banner Start -->
+   <div class="container my-4">
+    <button class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#createMovieModal">
+        <i class="fas fa-plus-circle me-2"></i> Add Movie
+    </button>
+
+    <!-- Modal for Adding a Movie -->
+    <div class="modal fade" id="createMovieModal" tabindex="-1" aria-labelledby="createMovieModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createMovieModalLabel">Create a New Movie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form to Add Movie -->
+                    <form method="POST" action="{{ route('movie.store') }}" enctype="multipart/form-data">
+                        @csrf
+                        
+                        <!-- Movie Title -->
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>
+                            @error('title')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Movie Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required>{{ old('description') }}</textarea>
+                            @error('description')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Category Selection -->
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Category</label>
+                            <select class="form-select" id="category_id" name="category_id" required>
+                                <option value="">Select a Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Movie Image -->
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Image (optional)</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                            @error('image')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Release Date -->
+                        <div class="mb-3">
+                            <label for="release_date" class="form-label">Release Date</label>
+                            <input type="date" class="form-control" id="release_date" name="release_date" value="{{ old('release_date') }}" required>
+                            @error('release_date')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Movie Review (optional) -->
+                        <div class="mb-3">
+                            <label for="review" class="form-label">Review (optional)</label>
+                            <textarea class="form-control" id="review" name="review" rows="3">{{ old('review') }}</textarea>
+                            @error('review')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary">Add Movie</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
    <section class="pt-0 pb-0">
         <div class="container-fluid px-0">
             <div class="row no-gutters">
