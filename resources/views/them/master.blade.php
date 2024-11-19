@@ -7,7 +7,9 @@
     @include('them.partial.loader')
 
     @include('them.partial.nav')
-
+    <main>
+        @yield('content') 
+    </main>
     @include('them.partial.footer')
 
     <div id="back-to-top">
